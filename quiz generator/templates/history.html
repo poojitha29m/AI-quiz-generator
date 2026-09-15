@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}History | QuizGen AI{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="page-header">
+
+        <span class="small-title">
+            YOUR ACTIVITY
+        </span>
+
+        <h1>📚 Quiz History</h1>
+
+        <p class="muted">
+            Check your previous quizzes and scores.
+        </p>
+
+    </div>
+
+
+    {% if history %}
+
+        <table>
+
+            <tr>
+                <th>Quiz</th>
+                <th>Difficulty</th>
+                <th>Score</th>
+                <th>Date</th>
+                <th>Review</th>
+            </tr>
+
+
+            {% for item in history %}
+
+                <tr>
+
+                    <td>
+                        {{ item['title'] }}
+                    </td>
+
+                    <td>
+                        {{ item['difficulty'] }}
+                    </td>
+
+                    <td>
+                        {{ item['score'] }}/{{ item['total'] }}
+                    </td>
+
+                    <td>
+                        {{ item['created_at'] }}
+                    </td>
+
+                    <td>
+
+                        <a href="{{ url_for(
+                            'review',
+                            result_id=item['id']
+                        ) }}"
+                           class="btn">
+
+                            Review
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+        </table>
+
+
+    {% else %}
+
+        <div class="card"
+             style="text-align:center;">
+
+            <div class="icon"
+                 style="margin:auto;">
+                📚
+            </div>
+
+            <h2>No Quiz History</h2>
+
+            <p class="muted">
+                Complete your first quiz to see it here.
+            </p>
+
+            <br>
+
+            <a href="/generate"
+               class="btn">
+                Generate Quiz
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | QuizGen AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f6faf7;
+            color: #1d2b22;
+            min-height: 100vh;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 75px;
+            background: white;
+            padding: 0 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #157347;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .logo-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg,#198754,#31b774);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #445249;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #198754;
+        }
+
+        .logout {
+            padding: 10px 18px;
+            background: #eef9f2;
+            color: #198754 !important;
+            border-radius: 9px;
+        }
+
+
+        /* MAIN */
+
+        .container {
+            width: 88%;
+            max-width: 1200px;
+            margin: 45px auto;
+        }
+
+
+        /* WELCOME */
+
+        .welcome {
+            background: linear-gradient(135deg,#198754,#2eb875);
+            border-radius: 24px;
+            padding: 38px 40px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(25,135,84,0.18);
+        }
+
+        .welcome::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            right: -70px;
+            top: -100px;
+        }
+
+        .welcome h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+
+        /* SECTION */
+
+        .section-title {
+            margin-top: 40px;
+            margin-bottom: 22px;
+        }
+
+        .section-title h2 {
+            font-size: 25px;
+            color: #203128;
+        }
+
+        .section-title p {
+            margin-top: 5px;
+            color: #7b8981;
+            font-size: 14px;
+        }
+
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            padding: 27px;
+            border-radius: 18px;
+            border: 1px solid #e8f0eb;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.09);
+        }
+
+        .icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #e9f8ef;
+            color: #198754;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 9px;
+            color: #24352b;
+        }
+
+        .card p {
+            color: #78867e;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 45px;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 18px;
+            text-decoration: none;
+            color: #198754;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* SPECIAL MAIN CARD */
+
+        .main-card {
+            background: linear-gradient(145deg,#ffffff,#f1fff6);
+            border: 1px solid #d7ecdf;
+        }
+
+        .main-card .icon {
+            background: linear-gradient(135deg,#198754,#34b978);
+            color: white;
+            box-shadow: 0 6px 18px rgba(25,135,84,0.22);
+        }
+
+
+        /* BOTTOM INFO */
+
+        .tip-box {
+            margin-top: 35px;
+            background: white;
+            border-left: 5px solid #198754;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            color: #536158;
+        }
+
+        .tip-box strong {
+            color: #198754;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media(max-width: 900px) {
+
+            .cards {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+        }
+
+        @media(max-width: 650px) {
+
+            .navbar {
+                height: auto;
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome {
+                padding: 30px 25px;
+            }
+
+            .welcome h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <div class="logo-box">
+            Q
+        </div>
+
+        QuizGen AI
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/history">
+            History
+        </a>
+
+        <a href="/join-room">
+            Join Quiz
+        </a>
+
+        <a href="/profile">
+            Profile
+        </a>
+
+        <a href="/logout"
+           class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+
+        <h1>
+            Welcome back, {{ name }} 👋
+        </h1>
+
+        <p>
+            Turn your study material into smart AI quizzes,
+            track your performance and challenge your friends
+            in multiplayer quiz rooms.
+        </p>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="section-title">
+
+        <h2>
+            Quick Actions
+        </h2>
+
+        <p>
+            What would you like to do today?
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <!-- GENERATE -->
+
+        <div class="card main-card">
+
+            <div class="icon">
+                ✨
+            </div>
+
+            <h3>
+                Generate AI Quiz
+            </h3>
+
+            <p>
+                Upload PDF, DOCX or TXT study material
+                and generate questions instantly.
+            </p>
+
+            <a href="/generate">
+                Create Quiz →
+            </a>
+
+        </div>
+
+
+        <!-- CREATE ROOM -->
+
+        <div class="card">
+
+            <div class="icon">
+                👥
+            </div>
+
+            <h3>
+                Create Quiz Room
+            </h3>
+
+            <p>
+                Select one of your quizzes and challenge
+                your friends using a room code.
+            </p>
+
+            <a href="/create-room">
+                Create Room →
+            </a>
+
+        </div>
+
+
+        <!-- JOIN -->
+
+        <div class="card">
+
+            <div class="icon">
+                🔗
+            </div>
+
+            <h3>
+                Join Quiz Room
+            </h3>
+
+            <p>
+                Enter a room code shared by your friend
+                and compete in the same quiz.
+            </p>
+
+            <a href="/join-room">
+                Join Quiz →
+            </a>
+
+        </div>
+
+
+        <!-- HISTORY -->
+
+        <div class="card">
+
+            <div class="icon">
+                📚
+            </div>
+
+            <h3>
+                Quiz History
+            </h3>
+
+            <p>
+                View your previous quiz attempts,
+                scores and review answers.
+            </p>
+
+            <a href="/history">
+                View History →
+            </a>
+
+        </div>
+
+
+        <!-- LEADERBOARD -->
+
+        <div class="card">
+
+            <div class="icon">
+                🏆
+            </div>
+
+            <h3>
+                Leaderboard
+            </h3>
+
+            <p>
+                Compare scores with friends and
+                see who performed the best.
+            </p>
+
+            <a href="/leaderboard">
+                View Leaderboard →
+            </a>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="card">
+
+            <div class="icon">
+                📊
+            </div>
+
+            <h3>
+                My Performance
+            </h3>
+
+            <p>
+                Check total quizzes, average score
+                and your best performance.
+            </p>
+
+            <a href="/profile">
+                View Performance →
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="tip-box">
+
+        <strong>💡 Quick Tip:</strong>
+
+        Generate a quiz first, then use
+        <b>Create Quiz Room</b> to share that quiz with your friends.
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

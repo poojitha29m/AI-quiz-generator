@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz | QuizGen AI{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="page-header">
+
+        {% if room_mode %}
+
+            <span class="small-title">
+                FRIEND CHALLENGE
+            </span>
+
+            <h1>👥 Multiplayer Quiz</h1>
+
+            <p class="muted">
+                Room Code: <strong>{{ room_code }}</strong>
+            </p>
+
+        {% else %}
+
+            <span class="small-title">
+                AI GENERATED QUIZ
+            </span>
+
+            <h1>🧠 Start Your Quiz</h1>
+
+            {% if quiz %}
+                <p class="muted">
+                    {{ quiz['title'] }} •
+                    {{ quiz['difficulty'] }}
+                </p>
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+
+    <div style="display:flex;
+                justify-content:space-between;
+                margin-bottom:20px;">
+
+        <strong>
+            {{ questions|length }} Questions
+        </strong>
+
+        <div id="timer"
+             class="timer">
+            ⏱ 10:00
+        </div>
+
+    </div>
+
+
+    <form method="POST"
+          id="quizForm">
+
+
+    {% for question in questions %}
+
+        <div class="question-card">
+
+            <div class="question-number">
+                Question {{ loop.index }}
+            </div>
+
+            <h3>
+                {{ question['question'] }}
+            </h3>
+
+
+            {% for letter, option in [
+                ('A', question['option_a']),
+                ('B', question['option_b']),
+                ('C', question['option_c']),
+                ('D', question['option_d'])
+            ] %}
+
+                <label class="option">
+
+                    <input type="radio"
+                           name="question_{{ question['id'] }}"
+                           value="{{ letter }}">
+
+                    <span class="option-letter">
+                        {{ letter }}
+                    </span>
+
+                    {{ option }}
+
+                </label>
+
+            {% endfor %}
+
+        </div>
+
+    {% endfor %}
+
+
+        <div style="text-align:center;margin:35px;">
+
+            <button class="btn"
+                    id="submitButton">
+
+                {% if room_mode %}
+                    🏆 Submit Challenge
+                {% else %}
+                    ✅ Submit Quiz
+                {% endif %}
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+
+let timeLeft = 600;
+
+const timer =
+    document.getElementById("timer");
+
+const form =
+    document.getElementById("quizForm");
+
+
+const interval = setInterval(function(){
+
+    let minutes =
+        Math.floor(timeLeft / 60);
+
+    let seconds =
+        timeLeft % 60;
+
+    timer.innerHTML =
+        "⏱ " +
+        minutes +
+        ":" +
+        String(seconds).padStart(2,"0");
+
+    if(timeLeft <= 0){
+
+        clearInterval(interval);
+
+        timer.innerHTML =
+            "Time's Up!";
+
+        form.submit();
+    }
+
+    timeLeft--;
+
+},1000);
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Login | QuizGen AI{% endblock %}
+
+{% block content %}
+
+<div class="form-card">
+
+    <div class="form-icon">🔐</div>
+
+    <h1>Welcome Back</h1>
+
+    <p class="muted">
+        Login to continue learning.
+    </p>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <div class="error">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email"
+                   name="email"
+                   placeholder="Enter your email"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password"
+                   name="password"
+                   placeholder="Enter your password"
+                   required>
+        </div>
+
+        <button class="btn full-btn">
+            Login
+        </button>
+
+    </form>
+
+    <p class="muted" style="margin-top:20px;">
+        Don't have an account?
+        <a href="/register" style="color:#198754;">Register</a>
+    </p>
+
+</div>
+
+{% endblock %}

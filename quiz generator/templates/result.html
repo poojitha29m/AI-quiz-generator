@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Result | QuizGen AI{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+.result{
+    max-width:650px;
+    margin:60px auto;
+    text-align:center;
+}
+
+.score-circle{
+    width:180px;
+    height:180px;
+    border:10px solid #198754;
+    border-radius:50%;
+    margin:30px auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:#f1fff5;
+}
+
+.score-circle h2{
+    color:#198754;
+    font-size:38px;
+}
+
+.percentage{
+    font-size:26px;
+    color:#198754;
+    font-weight:800;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <div class="card result">
+
+        <div class="icon"
+             style="margin:auto;">
+            🏆
+        </div>
+
+        <h1>Quiz Completed!</h1>
+
+        <p class="muted">
+            {{ result['title'] }}
+        </p>
+
+
+        <div class="score-circle">
+
+            <h2>
+                {{ result['score'] }}/{{ result['total'] }}
+            </h2>
+
+            <span>Your Score</span>
+
+        </div>
+
+
+        <div class="percentage">
+            {{ percentage }}%
+        </div>
+
+        <br>
+
+
+        {% if percentage >= 80 %}
+
+            <p>🌟 Excellent performance!</p>
+
+        {% elif percentage >= 60 %}
+
+            <p>👏 Good job! Keep improving.</p>
+
+        {% elif percentage >= 40 %}
+
+            <p>📚 Good attempt. Review your answers.</p>
+
+        {% else %}
+
+            <p>💪 Keep practicing. You can improve!</p>
+
+        {% endif %}
+
+
+        <div style="margin-top:30px;">
+
+            <a href="{{ url_for('review',
+                     result_id=result['id']) }}"
+               class="btn">
+
+                📝 Review Answers
+
+            </a>
+
+            <a href="/generate"
+               class="btn btn-outline">
+
+                New Quiz
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

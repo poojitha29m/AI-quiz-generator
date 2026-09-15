@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | QuizGen AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f6faf7;
+            color: #223129;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 75px;
+            background: white;
+            padding: 0 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #157347;
+            font-size: 24px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .logo-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: linear-gradient(135deg,#198754,#30b773);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #44534a;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #198754;
+        }
+
+
+        /* CONTAINER */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 45px auto;
+        }
+
+        .small-title {
+            color: #198754;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            margin-top: 6px;
+            margin-bottom: 30px;
+        }
+
+
+        /* PROFILE */
+
+        .profile-card {
+            background: linear-gradient(135deg,#198754,#2db572);
+            border-radius: 22px;
+            padding: 35px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            box-shadow: 0 15px 35px rgba(25,135,84,0.18);
+            margin-bottom: 40px;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: 3px solid rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+        }
+
+        .profile-info h1 {
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .profile-info p {
+            opacity: 0.9;
+        }
+
+
+        /* PERFORMANCE */
+
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .section-title p {
+            color: #7a8980;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #e5efe8;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.09);
+        }
+
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 14px;
+            border-radius: 15px;
+            background: #e8f8ee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+        }
+
+        .stat-card h2 {
+            color: #198754;
+            font-size: 34px;
+            margin-bottom: 7px;
+        }
+
+        .stat-card p {
+            color: #79867e;
+        }
+
+
+        /* ACTION */
+
+        .action-box {
+            margin-top: 35px;
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.05);
+        }
+
+        .action-box h3 {
+            margin-bottom: 5px;
+        }
+
+        .action-box p {
+            color: #79867e;
+        }
+
+        .btn {
+            text-decoration: none;
+            background: linear-gradient(135deg,#198754,#2db572);
+            color: white;
+            padding: 13px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+
+        @media(max-width: 800px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .action-box {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .navbar {
+                height: auto;
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+
+        <div class="logo-box">
+            Q
+        </div>
+
+        QuizGen AI
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/generate">
+            Generate Quiz
+        </a>
+
+        <a href="/history">
+            History
+        </a>
+
+        <a href="/join-room">
+            Join Quiz
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <span class="small-title">
+        YOUR PROFILE
+    </span>
+
+    <h1 class="page-title">
+        My Profile
+    </h1>
+
+
+    <!-- PROFILE CARD -->
+
+    <div class="profile-card">
+
+        <div class="avatar">
+            👤
+        </div>
+
+        <div class="profile-info">
+
+            <h1>
+                {{ user['name'] }}
+            </h1>
+
+            <p>
+                {{ user['email'] }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- PERFORMANCE -->
+
+    <div class="section-title">
+
+        <h2>
+            📊 My Performance
+        </h2>
+
+        <p>
+            Track your quiz progress and scores.
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📝
+            </div>
+
+            <h2>
+                {{ stats['total_quizzes'] or 0 }}
+            </h2>
+
+            <p>
+                Quizzes Attempted
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📈
+            </div>
+
+            <h2>
+                {{ "%.1f"|format(stats['average_score'] or 0) }}%
+            </h2>
+
+            <p>
+                Average Score
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <h2>
+                {{ "%.1f"|format(stats['best_score'] or 0) }}%
+            </h2>
+
+            <p>
+                Best Score
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="action-box">
+
+        <div>
+
+            <h3>
+                Ready for another quiz?
+            </h3>
+
+            <p>
+                Upload study material and test your knowledge.
+            </p>
+
+        </div>
+
+        <a href="/generate"
+           class="btn">
+
+            ✨ Generate Quiz
+
+        </a>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

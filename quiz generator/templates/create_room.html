@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Create Room | QuizGen AI{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="form-card"
+         style="max-width:600px;">
+
+        <div class="form-icon">
+            👥
+        </div>
+
+        <h1>Create Quiz Room</h1>
+
+        <p class="muted">
+            Choose a generated quiz and share the room code
+            with your friends.
+        </p>
+
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <div class="error">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>Select Quiz</label>
+
+                <select name="quiz_id"
+                        required>
+
+                    <option value="">
+                        Choose your quiz
+                    </option>
+
+                    {% for quiz in quizzes %}
+
+                        <option value="{{ quiz['id'] }}">
+
+                            {{ quiz['title'] }}
+                            -
+                            {{ quiz['difficulty'] }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <button class="btn full-btn">
+                🔗 Create Room
+            </button>
+
+        </form>
+
+
+        {% if room_code %}
+
+            <div style="
+                margin-top:25px;
+                text-align:center;
+                background:#effaf3;
+                border:2px dashed #198754;
+                padding:25px;
+                border-radius:15px;
+            ">
+
+                <p class="muted">
+                    Share this room code:
+                </p>
+
+                <h1 id="roomCode"
+                    style="
+                    color:#198754;
+                    font-size:38px;
+                    letter-spacing:5px;
+                    margin:10px;
+                    ">
+
+                    {{ room_code }}
+
+                </h1>
+
+                <button onclick="copyCode()"
+                        class="btn">
+
+                    📋 Copy Code
+
+                </button>
+
+                <a href="/leaderboard/{{ room_code }}"
+                   class="btn btn-outline">
+
+                    🏆 Leaderboard
+
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<script>
+
+function copyCode(){
+
+    const code =
+        document.getElementById("roomCode").innerText;
+
+    navigator.clipboard.writeText(code);
+
+    alert("Room code copied!");
+
+}
+
+</script>
+
+{% endblock %}

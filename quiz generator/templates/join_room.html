@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Join Quiz | QuizGen AI{% endblock %}
+
+{% block content %}
+
+<div class="form-card">
+
+    <div class="form-icon">
+        🔗
+    </div>
+
+    <h1>Join Quiz Room</h1>
+
+    <p class="muted">
+        Enter your name and the code shared by your friend.
+    </p>
+
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <div class="error">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+
+    <form method="POST">
+
+        <div class="form-group">
+
+            <label>👤 Your Name</label>
+
+            <input type="text"
+                   name="player_name"
+                   placeholder="Enter your name"
+                   required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>🔑 Room Code</label>
+
+            <input type="text"
+                   name="room_code"
+                   id="roomCode"
+                   maxlength="6"
+                   placeholder="Example: A7X9P2"
+                   required>
+
+        </div>
+
+
+        <button class="btn full-btn">
+            🚀 Join Quiz
+        </button>
+
+    </form>
+
+</div>
+
+
+<script>
+
+document.getElementById("roomCode")
+.addEventListener("input",function(){
+
+    this.value =
+        this.value.toUpperCase();
+
+});
+
+</script>
+
+{% endblock %}

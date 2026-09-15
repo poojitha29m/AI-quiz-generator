@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}QuizGen AI{% endblock %}</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:"Segoe UI",Arial,sans-serif;
+        }
+
+        body{
+            background:#f6faf7;
+            color:#223129;
+            min-height:100vh;
+        }
+
+        /* NAVBAR */
+
+        .navbar{
+            height:75px;
+            background:white;
+            padding:0 7%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            box-shadow:0 3px 20px rgba(0,0,0,.06);
+            position:sticky;
+            top:0;
+            z-index:1000;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            color:#157347;
+            font-size:24px;
+            font-weight:800;
+            text-decoration:none;
+        }
+
+        .logo-box{
+            width:42px;
+            height:42px;
+            border-radius:12px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            background:linear-gradient(135deg,#198754,#30b773);
+        }
+
+        .nav-links{
+            display:flex;
+            align-items:center;
+            gap:25px;
+        }
+
+        .nav-links a{
+            text-decoration:none;
+            color:#44534a;
+            font-weight:600;
+            font-size:14px;
+        }
+
+        .nav-links a:hover{
+            color:#198754;
+        }
+
+        .container{
+            width:90%;
+            max-width:1150px;
+            margin:45px auto;
+        }
+
+        /* HEADINGS */
+
+        .page-header{
+            margin-bottom:30px;
+        }
+
+        .small-title{
+            color:#198754;
+            font-weight:700;
+            font-size:13px;
+            letter-spacing:1px;
+        }
+
+        .page-header h1{
+            font-size:35px;
+            margin:7px 0;
+        }
+
+        .muted{
+            color:#7a8980;
+            line-height:1.6;
+        }
+
+        /* CARD */
+
+        .card{
+            background:white;
+            border-radius:18px;
+            padding:28px;
+            border:1px solid #e6efe9;
+            box-shadow:0 7px 25px rgba(0,0,0,.05);
+        }
+
+        .card h2,
+        .card h3{
+            margin-bottom:10px;
+        }
+
+        /* BUTTON */
+
+        .btn{
+            border:none;
+            display:inline-block;
+            text-decoration:none;
+            background:linear-gradient(135deg,#198754,#2db471);
+            color:white;
+            padding:12px 22px;
+            border-radius:10px;
+            font-weight:700;
+            cursor:pointer;
+            transition:.25s;
+        }
+
+        .btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 8px 20px rgba(25,135,84,.22);
+        }
+
+        .btn-outline{
+            background:white;
+            color:#198754;
+            border:1px solid #bcdcca;
+        }
+
+        .full-btn{
+            width:100%;
+        }
+
+        /* FORMS */
+
+        .form-group{
+            margin-bottom:20px;
+        }
+
+        .form-group label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:700;
+            font-size:14px;
+        }
+
+        input,
+        select,
+        textarea{
+            width:100%;
+            padding:13px 14px;
+            border:1px solid #d5e2d9;
+            border-radius:10px;
+            outline:none;
+            font-size:15px;
+            background:#fcfffd;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus{
+            border-color:#198754;
+            box-shadow:0 0 0 3px rgba(25,135,84,.1);
+        }
+
+        /* FORM BOX */
+
+        .form-card{
+            width:90%;
+            max-width:480px;
+            margin:55px auto;
+            background:white;
+            padding:35px;
+            border-radius:20px;
+            box-shadow:0 12px 40px rgba(0,0,0,.07);
+        }
+
+        .form-icon{
+            width:60px;
+            height:60px;
+            margin:0 auto 15px;
+            border-radius:16px;
+            background:#e8f8ee;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:27px;
+        }
+
+        .form-card h1{
+            text-align:center;
+            color:#203128;
+            margin-bottom:7px;
+        }
+
+        .form-card .muted{
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+        /* DASHBOARD GRID */
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:22px;
+        }
+
+        .action-card{
+            background:white;
+            border:1px solid #e6efe9;
+            padding:27px;
+            border-radius:18px;
+            box-shadow:0 7px 25px rgba(0,0,0,.05);
+            transition:.3s;
+        }
+
+        .action-card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 14px 35px rgba(0,0,0,.09);
+        }
+
+        .icon{
+            width:52px;
+            height:52px;
+            border-radius:14px;
+            background:#e8f8ee;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:24px;
+            margin-bottom:16px;
+        }
+
+        .action-card h3{
+            margin-bottom:8px;
+        }
+
+        .action-card p{
+            color:#79867e;
+            font-size:14px;
+            line-height:1.6;
+            min-height:45px;
+        }
+
+        .action-card a{
+            display:inline-block;
+            margin-top:17px;
+            color:#198754;
+            text-decoration:none;
+            font-weight:700;
+        }
+
+        /* HERO BOX */
+
+        .welcome{
+            background:linear-gradient(135deg,#198754,#2db572);
+            padding:38px;
+            border-radius:22px;
+            color:white;
+            margin-bottom:35px;
+            box-shadow:0 15px 35px rgba(25,135,84,.18);
+        }
+
+        .welcome h1{
+            font-size:34px;
+            margin-bottom:8px;
+        }
+
+        .welcome p{
+            opacity:.9;
+            line-height:1.6;
+        }
+
+        /* TABLE */
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            border-radius:15px;
+            overflow:hidden;
+            box-shadow:0 7px 25px rgba(0,0,0,.05);
+        }
+
+        th{
+            background:#198754;
+            color:white;
+            padding:15px;
+        }
+
+        td{
+            padding:15px;
+            text-align:center;
+            border-bottom:1px solid #edf2ef;
+        }
+
+        /* MESSAGE */
+
+        .error{
+            background:#ffe9e9;
+            color:#a33b3b;
+            padding:12px;
+            border-radius:9px;
+            margin-bottom:18px;
+        }
+
+        .success{
+            background:#e7f7ed;
+            color:#167244;
+            padding:12px;
+            border-radius:9px;
+            margin-bottom:18px;
+        }
+
+        /* QUIZ */
+
+        .question-card{
+            background:white;
+            border-radius:18px;
+            padding:27px;
+            margin-bottom:20px;
+            box-shadow:0 7px 25px rgba(0,0,0,.05);
+        }
+
+        .question-number{
+            color:#198754;
+            font-weight:700;
+            margin-bottom:8px;
+        }
+
+        .option{
+            display:flex;
+            align-items:center;
+            padding:13px;
+            margin:10px 0;
+            background:#f5fff8;
+            border:1px solid #d9ebdf;
+            border-radius:10px;
+            cursor:pointer;
+        }
+
+        .option:hover{
+            border-color:#198754;
+            background:#ecfaf1;
+        }
+
+        .option input{
+            width:auto;
+            margin-right:12px;
+        }
+
+        .option-letter{
+            width:30px;
+            height:30px;
+            border-radius:50%;
+            background:#198754;
+            color:white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin-right:12px;
+            font-weight:bold;
+        }
+
+        .timer{
+            background:#198754;
+            color:white;
+            padding:10px 18px;
+            border-radius:10px;
+            font-weight:700;
+            display:inline-block;
+        }
+
+        /* STATS */
+
+        .stats{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:20px;
+        }
+
+        .stat{
+            background:white;
+            padding:25px;
+            text-align:center;
+            border-radius:17px;
+            box-shadow:0 7px 25px rgba(0,0,0,.05);
+        }
+
+        .stat h2{
+            color:#198754;
+            font-size:32px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:850px){
+
+            .grid,
+            .stats{
+                grid-template-columns:1fr;
+            }
+
+            .navbar{
+                height:auto;
+                padding:15px;
+                flex-direction:column;
+                gap:15px;
+            }
+
+            .nav-links{
+                flex-wrap:wrap;
+                justify-content:center;
+            }
+        }
+
+    </style>
+
+    {% block extra_css %}{% endblock %}
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+
+        <span class="logo-box">Q</span>
+
+        QuizGen AI
+
+    </a>
+
+    <div class="nav-links">
+
+        {% if session.get('user_id') %}
+
+            <a href="/dashboard">Dashboard</a>
+            <a href="/generate">Generate Quiz</a>
+            <a href="/history">History</a>
+            <a href="/join-room">Join Quiz</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+
+        {% else %}
+
+            <a href="/">Home</a>
+            <a href="/join-room">Join Quiz</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

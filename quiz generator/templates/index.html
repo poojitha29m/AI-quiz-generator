@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QuizGen AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f7fbf8;
+            color: #17241c;
+            overflow-x: hidden;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 78px;
+            width: 100%;
+            padding: 0 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 25px;
+            font-weight: 800;
+            color: #157347;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg,#198754,#39b875);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 21px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #415249;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover {
+            color: #198754;
+        }
+
+        .nav-btn {
+            background: #198754;
+            color: white !important;
+            padding: 11px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(25,135,84,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #146c43;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: calc(100vh - 78px);
+            padding: 70px 7%;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            gap: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .circle-one {
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            background: rgba(25,135,84,0.07);
+            border-radius: 50%;
+            right: -180px;
+            top: -100px;
+            z-index: -1;
+        }
+
+        .circle-two {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(32,201,151,0.07);
+            border-radius: 50%;
+            left: -150px;
+            bottom: -100px;
+            z-index: -1;
+        }
+
+        .hero-left {
+            max-width: 650px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #e9f8ef;
+            color: #198754;
+            padding: 9px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .hero-left h1 {
+            font-size: 58px;
+            line-height: 1.12;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 22px;
+        }
+
+        .hero-left h1 span {
+            color: #198754;
+        }
+
+        .hero-left p {
+            font-size: 18px;
+            line-height: 1.75;
+            color: #66746c;
+            max-width: 590px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            text-decoration: none;
+            padding: 14px 25px;
+            border-radius: 11px;
+            font-weight: 700;
+            font-size: 15px;
+            transition: 0.25s;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg,#198754,#20a566);
+            color: white;
+            box-shadow: 0 8px 22px rgba(25,135,84,0.22);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(25,135,84,0.28);
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #198754;
+            border: 1px solid #cee7d7;
+        }
+
+        .secondary-btn:hover {
+            background: #effbf3;
+        }
+
+
+        /* ================= RIGHT HERO CARD ================= */
+
+        .hero-right {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-card {
+            width: 100%;
+            max-width: 490px;
+            background: white;
+            border-radius: 25px;
+            padding: 28px;
+            box-shadow: 0 25px 70px rgba(31,84,53,0.14);
+            border: 1px solid #e8f3ec;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .small-logo {
+            width: 43px;
+            height: 43px;
+            background: #e6f7ed;
+            color: #198754;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .card-title h3 {
+            font-size: 17px;
+        }
+
+        .card-title span {
+            font-size: 12px;
+            color: #88958d;
+        }
+
+        .ai-badge {
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #e9f8ef;
+            color: #198754;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .upload-area {
+            border: 2px dashed #b9dfc7;
+            background: #f8fdf9;
+            border-radius: 18px;
+            padding: 32px 20px;
+            text-align: center;
+        }
+
+        .upload-circle {
+            width: 68px;
+            height: 68px;
+            margin: auto;
+            margin-bottom: 14px;
+            border-radius: 18px;
+            background: linear-gradient(135deg,#198754,#31b774);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 8px 20px rgba(25,135,84,0.25);
+        }
+
+        .upload-area h3 {
+            margin-bottom: 8px;
+        }
+
+        .upload-area p {
+            color: #8a978f;
+            font-size: 13px;
+        }
+
+        .quiz-settings {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .setting-box {
+            background: #f6faf7;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .setting-box span {
+            font-size: 12px;
+            color: #89958e;
+        }
+
+        .setting-box h4 {
+            color: #263b2f;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .generate-demo {
+            width: 100%;
+            margin-top: 18px;
+            padding: 14px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(135deg,#198754,#20a566);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+
+        /* FLOATING CARDS */
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            padding: 13px 16px;
+            border-radius: 13px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .float-one {
+            top: 20px;
+            right: -35px;
+        }
+
+        .float-two {
+            bottom: 30px;
+            left: -45px;
+        }
+
+        .float-icon {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background: #e9f8ef;
+        }
+
+        .floating-card h4 {
+            font-size: 13px;
+        }
+
+        .floating-card p {
+            color: #87948c;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            padding: 70px 7% 90px;
+            background: white;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-heading span {
+            color: #198754;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .section-heading h2 {
+            font-size: 35px;
+            margin-top: 8px;
+        }
+
+        .feature-grid {
+            max-width: 1150px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            padding: 28px;
+            border-radius: 18px;
+            border: 1px solid #e7f0ea;
+            background: #ffffff;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 13px;
+            background: #e8f8ee;
+            color: #198754;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 23px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 9px;
+        }
+
+        .feature-card p {
+            color: #78857d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 900px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-left {
+                margin: auto;
+            }
+
+            .hero-left p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-left h1 {
+                font-size: 44px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-card {
+                display: none;
+            }
+        }
+
+        @media(max-width: 650px) {
+
+            .nav-links a:not(.nav-btn) {
+                display: none;
+            }
+
+            .hero {
+                padding: 50px 5%;
+            }
+
+            .hero-left h1 {
+                font-size: 37px;
+            }
+
+            .main-card {
+                padding: 20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            Q
+        </div>
+
+        QuizGen AI
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/join-room">
+            Join Quiz
+        </a>
+
+        <a href="/login">
+            Login
+        </a>
+
+        <a href="/register"
+           class="nav-btn">
+            Get Started
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="circle-one"></div>
+    <div class="circle-two"></div>
+
+
+    <!-- LEFT SIDE -->
+
+    <div class="hero-left">
+
+        <div class="tag">
+            ✨ AI Powered Learning Platform
+        </div>
+
+        <h1>
+            Turn Documents Into
+            <span>Smart Quizzes.</span>
+        </h1>
+
+        <p>
+            Upload your study material and let AI instantly create
+            interactive quizzes. Practice individually, challenge
+            your friends and compete on live leaderboards.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/register"
+               class="primary-btn">
+
+                ✨ Generate Your First Quiz
+
+            </a>
+
+            <a href="/join-room"
+               class="secondary-btn">
+
+                👥 Join Quiz Room
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="hero-right">
+
+
+        <div class="floating-card float-one">
+
+            <div class="float-icon">
+                🏆
+            </div>
+
+            <div>
+
+                <h4>Live Leaderboard</h4>
+
+                <p>
+                    Compete with friends
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="floating-card float-two">
+
+            <div class="float-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <h4>Quiz Ready!</h4>
+
+                <p>
+                    10 questions generated
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="main-card">
+
+            <div class="card-top">
+
+                <div class="card-title">
+
+                    <div class="small-logo">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <h3>Create Smart Quiz</h3>
+
+                        <span>
+                            Powered by AI
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ai-badge">
+                    ✨ AI
+                </div>
+
+            </div>
+
+
+            <div class="upload-area">
+
+                <div class="upload-circle">
+                    ↑
+                </div>
+
+                <h3>
+                    Upload your document
+                </h3>
+
+                <p>
+                    PDF • DOCX • TXT
+                </p>
+
+            </div>
+
+
+            <div class="quiz-settings">
+
+                <div class="setting-box">
+
+                    <span>
+                        Difficulty
+                    </span>
+
+                    <h4>
+                        🎯 Medium
+                    </h4>
+
+                </div>
+
+
+                <div class="setting-box">
+
+                    <span>
+                        Questions
+                    </span>
+
+                    <h4>
+                        ❓ 10 Questions
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <button class="generate-demo">
+
+                ✨ Generate Quiz
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features">
+
+    <div class="section-heading">
+
+        <span>
+            EVERYTHING YOU NEED
+        </span>
+
+        <h2>
+            Learn Smarter With QuizGen AI
+        </h2>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Quiz Generation
+            </h3>
+
+            <p>
+                Upload your document and instantly generate
+                intelligent questions using AI.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                👥
+            </div>
+
+            <h3>
+                Challenge Friends
+            </h3>
+
+            <p>
+                Create quiz rooms, share a code and let your
+                friends attempt the same quiz.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🏆
+            </div>
+
+            <h3>
+                Live Leaderboard
+            </h3>
+
+            <p>
+                Compare scores and find out who performed
+                best in your quiz challenge.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>

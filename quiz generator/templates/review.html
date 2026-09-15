@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Review | QuizGen AI{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="page-header">
+
+        <span class="small-title">
+            QUIZ REVIEW
+        </span>
+
+        <h1>📝 Review Your Answers</h1>
+
+        <p class="muted">
+            Learn from your mistakes using the AI explanations.
+        </p>
+
+    </div>
+
+
+    {% for question in questions %}
+
+        {% set selected =
+            answers.get(question['id']|string,'') %}
+
+
+        <div class="question-card">
+
+            <div class="question-number">
+                Question {{ loop.index }}
+            </div>
+
+            <h3>
+                {{ question['question'] }}
+            </h3>
+
+            <br>
+
+
+            {% if selected ==
+                  question['correct_answer'] %}
+
+                <div class="success">
+                    ✅ Your Answer: {{ selected }}
+                </div>
+
+            {% else %}
+
+                <div class="error">
+
+                    ❌ Your Answer:
+
+                    {% if selected %}
+                        {{ selected }}
+                    {% else %}
+                        Not Answered
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+
+            <div class="success">
+
+                ✅ Correct Answer:
+                {{ question['correct_answer'] }}
+
+            </div>
+
+
+            <div style="
+                background:#f2faf5;
+                padding:16px;
+                border-left:4px solid #198754;
+                border-radius:9px;
+                margin-top:15px;
+            ">
+
+                <strong>💡 Explanation</strong>
+
+                <br><br>
+
+                {{ question['explanation'] }}
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+
+    <div style="text-align:center;margin:30px;">
+
+        <a href="/dashboard"
+           class="btn">
+            Dashboard
+        </a>
+
+        <a href="/history"
+           class="btn btn-outline">
+            History
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
